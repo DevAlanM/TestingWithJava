@@ -1,6 +1,7 @@
 package tech.ada.adamon.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_adamon")
@@ -38,6 +39,11 @@ public class Adamon {
     public Long getId() {
         return id;
     }
+
+    public BigDecimal getPreco() {
+        return BigDecimal.valueOf((ataque + defesa + poder) / 3);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

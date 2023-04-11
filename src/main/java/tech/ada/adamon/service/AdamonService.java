@@ -6,6 +6,7 @@ import tech.ada.adamon.model.Adamon;
 import tech.ada.adamon.repository.AdamonRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdamonService {
@@ -21,4 +22,8 @@ public class AdamonService {
        return adamonRepository.save(adamon);
     }
 
-}
+    public Adamon encontrarAdamonPorId(Long idAdamon) {
+        Optional<Adamon> adamonOptional = adamonRepository.findById(idAdamon);
+        return adamonOptional.orElse(null);
+    }
+ }
