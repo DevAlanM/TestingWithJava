@@ -19,6 +19,21 @@ public class JogadorService {
     @Autowired
     private JogadorRepository jogadorRepository;
 
+
+
+
+
+    /*
+    A equipe de Adamons de um jogador irá batalhar contra a equipe de Adamons de outro jogador.
+    O jogador irá vencer quando o adversário não tiver mais adamons vivos (vida > 0)
+    A lógica da batalha fica a sua escolha.
+     */
+    public void batalhar(Jogador jogador1, Jogador jogador2) {
+
+    }
+
+
+
     /*
         1 - Implementar preços na classe 'Adamon'
         2 - Implementar método de compra do 'Adamon'
@@ -29,7 +44,7 @@ public class JogadorService {
     public void comprarAdamon(Jogador jogador, Adamon adamon) {
         List<Adamon> equipeAdamonJogador = jogador.getAdamons();
         BigDecimal saldoAtual = jogador.getSaldo();
-        BigDecimal precoAdamon = adamon.getPreco();
+        BigDecimal precoAdamon = adamon.obterPreco();
 
         boolean possuiSaldoSuficiente = saldoAtual.compareTo(precoAdamon) > 0;
         boolean possuiEspacoNaEquipe = equipeAdamonJogador.size() < 6;
@@ -43,6 +58,10 @@ public class JogadorService {
         } else if (!possuiEspacoNaEquipe) {
             throw new RuntimeException("Não possui espaço na equipe");
         }
+    }
+
+    public void venderAdamon(Jogador comprador, Adamon adamon) {
+
     }
 
     public void atualizarJogador(Jogador jogador, Long idJogador) {

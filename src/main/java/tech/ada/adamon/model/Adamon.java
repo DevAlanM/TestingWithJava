@@ -2,6 +2,7 @@ package tech.ada.adamon.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_adamon")
@@ -36,11 +37,25 @@ public class Adamon {
     @Column(nullable = false)
     private String urlFoto;
 
+    public Adamon() {
+    }
+
+    public Adamon(Long id, String nome, Integer vida, Integer ataque, Integer defesa, Integer inteligencia, Integer poder, Integer velocidade, String urlFoto) {
+        this.id = id;
+        this.nome = nome;
+        this.vida = vida;
+        this.ataque = ataque;
+        this.defesa = defesa;
+        this.inteligencia = inteligencia;
+        this.poder = poder;
+        this.velocidade = velocidade;
+        this.urlFoto = urlFoto;
+    }
+
     public Long getId() {
         return id;
     }
-
-    public BigDecimal getPreco() {
+    public BigDecimal obterPreco() {
         return BigDecimal.valueOf((ataque + defesa + poder) / 3);
     }
 
@@ -112,4 +127,16 @@ public class Adamon {
         this.urlFoto = urlFoto;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Adamon adamon = (Adamon) o;
+        return Objects.equals(id, adamon.id) && Objects.equals(nome, adamon.nome) && Objects.equals(vida, adamon.vida) && Objects.equals(ataque, adamon.ataque) && Objects.equals(defesa, adamon.defesa) && Objects.equals(inteligencia, adamon.inteligencia) && Objects.equals(poder, adamon.poder) && Objects.equals(velocidade, adamon.velocidade) && Objects.equals(urlFoto, adamon.urlFoto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, vida, ataque, defesa, inteligencia, poder, velocidade, urlFoto);
+    }
 }

@@ -69,6 +69,14 @@ public class Jogador {
         return adamons;
     }
 
+    public void adicionarAdamons(Adamon adamon) {
+        adamons.add(adamon);
+    }
+
+    public void removerAdamons(Adamon adamon) {
+        adamons.remove(adamon);
+    }
+
     public void setAdamons(List<Adamon> adamons) {
         this.adamons = adamons;
     }

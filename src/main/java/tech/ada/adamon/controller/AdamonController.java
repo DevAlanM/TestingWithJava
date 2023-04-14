@@ -1,10 +1,13 @@
 package tech.ada.adamon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.ada.adamon.model.Adamon;
 import tech.ada.adamon.service.AdamonService;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -15,13 +18,18 @@ public class AdamonController {
     private AdamonService adamonService;
 
     @GetMapping
-    public List<Adamon> recuperarTodosAdamons() {
-        return adamonService.recuperarTodosAdamons();
+    public ResponseEntity<List<Adamon>> recuperarTodosAdamons() {
+        return new ResponseEntity<>(adamonService.recuperarTodosAdamons(), HttpStatus.OK);
     }
 
     @PostMapping
-    public Adamon criarNovoAdamon(@RequestBody Adamon adamon) {
-        return adamonService.criarNovoAdamon(adamon);
+    public ResponseEntity<Adamon> criarNovoAdamon(@RequestBody Adamon adamon) {
+        return new ResponseEntity(adamonService.criarNovoAdamon(adamon), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Adamon> encontraAdamonPorId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(adamonService.encontrarAdamonPorId(id), HttpStatus.OK);
     }
 
 }
