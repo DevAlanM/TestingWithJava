@@ -24,9 +24,9 @@ public class JogadorService {
 
 
     /*
-    A equipe de Adamons de um jogador irá batalhar contra a equipe de Adamons de outro jogador.
-    O jogador irá vencer quando o adversário não tiver mais adamons vivos (vida > 0)
-    A lógica da batalha fica a sua escolha.
+    Criar um método batalhar que recebe dois jogadores, e este método será responsável pela
+    lógica de uma batalha entre duas equipes de Adamons. A lógica da batalha fica a sua escolha,
+    um jogador será vitorioso o adversário não possuir mais adamons vivos (vida > 0);
      */
     public void batalhar(Jogador jogador1, Jogador jogador2) {
 
