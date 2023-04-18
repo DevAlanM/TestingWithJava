@@ -14,11 +14,12 @@ import tech.ada.adamon.repository.JogadorRepository;
 import tech.ada.adamon.util.TestUtils;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static tech.ada.adamon.util.TestUtils.obterAdamon;
-import static tech.ada.adamon.util.TestUtils.obterJogador;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static tech.ada.adamon.util.TestUtils.*;
 
 @ExtendWith(MockitoExtension.class)
 class JogadorServiceTest {
@@ -64,6 +65,29 @@ class JogadorServiceTest {
 
         //acao
         Assertions.assertThrows(RuntimeException.class, () -> { jogadorService.comprarAdamon(jogador, adamon); });
+    }
+    @Test
+    void testBatalharEquipesVaziasEmpate() {
+        Jogador jogador1 = TestUtils.obterJogador();
+        Jogador jogador2 = TestUtils.obterJogador2();
+
+        jogadorService.batalhar(jogador1, jogador2);
+
+        assertTrue(jogador1.getAdamons().isEmpty());
+        assertTrue(jogador2.getAdamons().isEmpty());
+        verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void testBatalharEquipe1Venceu() {
+        Jogador jogador1 = TestUtils.obterJogador();
+        jogador1.setAdamons(TestUtils.obterAdamonsFortes());
+        Jogador jogador2 = TestUtils.obterJogador2();
+        jogador2.setAdamons(TestUtils.obterAdamonsFracos());
+
+        jogadorService.batalhar(jogador1, jogador2);
+
+        verifyNoMoreInteractions(repository);
     }
 
 }

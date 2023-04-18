@@ -127,6 +127,14 @@ public class Adamon {
         this.urlFoto = urlFoto;
     }
 
+    public void receberDano(int dano) {
+        int novaVida = this.vida - dano;
+        if (novaVida < 0) {
+            novaVida = 0;
+        }
+        this.vida = novaVida;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -20,19 +20,51 @@ public class JogadorService {
     private JogadorRepository jogadorRepository;
 
 
-
-
-
     /*
     Criar um método batalhar que recebe dois jogadores, e este método será responsável pela
     lógica de uma batalha entre duas equipes de Adamons. A lógica da batalha fica a sua escolha,
     um jogador será vitorioso o adversário não possuir mais adamons vivos (vida > 0);
      */
     public void batalhar(Jogador jogador1, Jogador jogador2) {
+        List<Adamon> equipe1 = jogador1.getAdamons();
+        List<Adamon> equipe2 = jogador2.getAdamons();
 
+        while (true) {
+
+            for (Adamon adamon1 : equipe1) {
+                for (Adamon adamon2 : equipe2) {
+                    adamon2.receberDano(adamon1.getAtaque());
+                        equipe2.removeIf(a -> a.getVida() <= 0);
+                        System.err.println("O Adamon " + adamon1.getNome() + " ganhou");
+
+
+                    adamon1.receberDano(adamon2.getAtaque());
+                        equipe1.removeIf(a -> a.getVida() <= 0);
+                        System.err.println("O Adamon " + adamon2.getNome() + " ganhou");
+
+                }
+            }
+
+            boolean equipe1Viva = !equipe1.isEmpty();
+            boolean equipe2Viva = !equipe2.isEmpty();
+
+
+            if (!equipe1Viva || !equipe2Viva) {
+                break;
+            }
+        }
+
+        boolean equipe1Viva = !equipe1.isEmpty();
+        boolean equipe2Viva = !equipe2.isEmpty();
+
+        if (equipe1Viva && !equipe2Viva) {
+            System.out.println("Jogador 1 venceu a batalha!");
+        } else if (!equipe1Viva && equipe2Viva) {
+            System.out.println("Jogador 2 venceu a batalha!");
+        } else {
+            System.out.println("A batalha terminou em empate!");
+        }
     }
-
-
 
     /*
         1 - Implementar preços na classe 'Adamon'
@@ -79,7 +111,6 @@ public class JogadorService {
     public Jogador salvarJogador(SalvarJogadorDTO dto) {
         return jogadorRepository.save(JogadorDtoConverter.converterDto(dto));
     }
-
 
 
 }
